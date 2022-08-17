@@ -8,15 +8,11 @@ import {
   Text,
   View,
 } from "react-native";
-
-export type Drink = {
-  idDrink: string;
-  strDrink: string;
-};
+import DrinkItem, { DrinkType } from "./DrinkItem";
 
 export default function DrinksList() {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState<Drink[]>([]);
+  const [data, setData] = useState<DrinkType[]>([]);
 
   const getMovies = async () => {
     try {
@@ -36,8 +32,8 @@ export default function DrinksList() {
     getMovies();
   }, []);
 
-  const renderItem: ListRenderItem<Drink> = useCallback(
-    ({ item }) => <Text>{item.strDrink}</Text>,
+  const renderItem: ListRenderItem<DrinkType> = useCallback(
+    ({ item }) => <DrinkItem drink={item} />,
     []
   );
 
