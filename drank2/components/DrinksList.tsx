@@ -10,6 +10,10 @@ import {
 } from "react-native";
 import DrinkItem, { DrinkType } from "./DrinkItem";
 
+type DrinkAPIResponse = {
+  drinks: [{ idDrink: string; strDrink: string; strDrinkThumb: string }];
+};
+
 export default function DrinksList() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<DrinkType[]>([]);
@@ -19,8 +23,15 @@ export default function DrinksList() {
       const response = await fetch(
         "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
       );
-      const json = await response.json();
-      setData(json.drinks);
+      const json: DrinkAPIResponse = await response.json();
+      const drinksResponse: DrinkType[] = json.drinks.map(
+        ({ idDrink, strDrink, strDrinkThumb }) => ({
+          id: idDrink,
+          name: strDrink,
+          imageUri: strDrinkThumb,
+        })
+      );
+      setData(drinksResponse);
     } catch (error) {
       console.error(error);
     } finally {
@@ -44,7 +55,7 @@ export default function DrinksList() {
       ) : (
         <FlatList
           data={data}
-          keyExtractor={({ idDrink }) => idDrink}
+          keyExtractor={({ id }) => id}
           renderItem={renderItem}
         />
       )}

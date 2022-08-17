@@ -1,9 +1,10 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, View, Image } from "react-native";
 
 export type DrinkType = {
-  idDrink: string;
-  strDrink: string;
+  id: string;
+  name: string;
+  imageUri: string;
 };
 
 export type DrinkProps = {
@@ -11,11 +12,14 @@ export type DrinkProps = {
 };
 
 export default function DrinkItem({ drink }: DrinkProps) {
-  const { idDrink, strDrink } = drink;
+  const { id, name, imageUri } = drink;
 
   return (
-    <Text>
-      {idDrink},{strDrink}
-    </Text>
+    <View>
+      <Image source={{ uri: imageUri }} style={{ width: 400, height: 400 }} />
+      <Text>
+        {id}: {name}
+      </Text>
+    </View>
   );
 }
