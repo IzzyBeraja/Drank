@@ -11,9 +11,13 @@
     "noUnusedParameters": true,
     "noImplicitAny": true,
     "strict": true,
+    "target": "esnext",
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "target": "esnext"
+    "strictPropertyInitialization": true
   },
   "exclude": [
     "node_modules",
