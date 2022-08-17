@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-type Item = {
+export type Item = {
   idDrink: string;
   strDrink: string;
 };
