@@ -53,11 +53,14 @@ export default function DrinksList() {
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <FlatList
-          data={data}
-          keyExtractor={({ id }) => id}
-          renderItem={renderItem}
-        />
+        <>
+          <Text>{`${data.length} Drinks`}</Text>
+          <FlatList
+            data={data}
+            keyExtractor={({ id }) => id}
+            renderItem={renderItem}
+          />
+        </>
       )}
     </View>
   );
