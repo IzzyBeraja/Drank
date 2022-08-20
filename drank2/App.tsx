@@ -13,7 +13,16 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={DrinksList}
-          options={{ title: "Dranks" }}
+          options={{
+            title: "Dranks",
+            headerStyle: {
+              backgroundColor: "#000000",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
         />
         <Stack.Screen name="Drink" component={DrinkItem} />
       </Stack.Navigator>
