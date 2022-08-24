@@ -5,16 +5,17 @@ import {
   FlatList,
   ListRenderItem,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import DrinkItem, { DrinkType } from "./DrinkItem";
+import { Text } from "react-native-elements";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type DrinkAPIResponse = {
   drinks: [{ idDrink: string; strDrink: string; strDrinkThumb: string }];
 };
 
-export default function DrinksList() {
+export default function DrinksListScreen({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<DrinkType[]>([]);
 
@@ -43,8 +44,15 @@ export default function DrinksList() {
     getMovies();
   }, []);
 
+  const onDrinkPressed = useCallback((drinkId: string) => {
+    console.log(`Pressed Drink: ${drinkId}`);
+    navigation.navigate("DrinkScreen");
+  }, []);
+
   const renderItem: ListRenderItem<DrinkType> = useCallback(
-    ({ item }) => <DrinkItem drink={item} />,
+    ({ item }) => (
+      <DrinkItem drink={item} onDrinkPressed={() => onDrinkPressed(item.id)} />
+    ),
     []
   );
 
@@ -54,7 +62,7 @@ export default function DrinksList() {
         <ActivityIndicator />
       ) : (
         <>
-          <Text>{`${data.length} Drinks`}</Text>
+          <Text h4>{`${data.length} Results`}</Text>
           <FlatList
             data={data}
             keyExtractor={({ id }) => id}

@@ -2,8 +2,8 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
-import React from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import React, { useCallback } from "react";
+import { Text, View, Image, StyleSheet, Pressable } from "react-native";
 
 export type DrinkType = {
   id: string;
@@ -13,17 +13,24 @@ export type DrinkType = {
 
 export type DrinkProps = {
   drink: DrinkType;
+  onDrinkPressed: () => void;
 };
 
-export default function DrinkItem({ drink }: DrinkProps) {
-  const { name, imageUri } = drink;
+export default function DrinkItem({ drink, onDrinkPressed }: DrinkProps) {
+  const { name, imageUri, id } = drink;
+  const onPressFunction = useCallback(() => {
+    console.log(`Touch me: ${id}`);
+    onDrinkPressed();
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: imageUri }} style={styles.image} />
-      <View style={styles.titleContainer}>
-        <Text style={styles.text}>{name}</Text>
-      </View>
+      <Pressable onPress={onPressFunction}>
+        <Image source={{ uri: imageUri }} style={styles.image} />
+        <View style={styles.titleContainer}>
+          <Text style={styles.text}>{name}</Text>
+        </View>
+      </Pressable>
     </View>
   );
 }

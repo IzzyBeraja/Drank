@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import DrinksList from "./components/DrinksList";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DrinkItem from "./components/DrinkItem";
+import DrinkScreen from "./screens/DrinkScreen";
+import DrinksListScreen from "./components/DrinksListScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +12,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={DrinksList}
+          component={DrinksListScreen}
           options={{
             title: "Dranks",
             headerStyle: {
@@ -24,7 +24,7 @@ export default function App() {
             },
           }}
         />
-        <Stack.Screen name="Drink" component={DrinkItem} />
+        <Stack.Screen name="DrinkScreen" component={DrinkScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
