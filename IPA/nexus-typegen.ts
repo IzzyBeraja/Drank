@@ -28,6 +28,11 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Link: { // root type
+    description: string; // String!
+    id: string; // ID!
+    url: string; // String!
+  }
   Query: {};
 }
 
@@ -42,12 +47,22 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Link: { // field return type
+    description: string; // String!
+    id: string; // ID!
+    url: string; // String!
+  }
   Query: { // field return type
     ok: boolean; // Boolean!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Link: { // field return type name
+    description: 'String'
+    id: 'ID'
+    url: 'String'
+  }
   Query: { // field return type name
     ok: 'Boolean'
   }

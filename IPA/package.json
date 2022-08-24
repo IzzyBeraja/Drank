@@ -12,8 +12,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --transpile-only --no-notify --exit-child index.ts",
-    "generate": "ts-node --transpile-only schema.ts"
+    "dev": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
+    "generate": "ts-node --transpile-only src/schema.ts"
   },
   "devDependencies": {
     "ts-node": "^10.9.1"
