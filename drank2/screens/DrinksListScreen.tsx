@@ -11,7 +11,10 @@ import { Text } from "react-native-elements";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { DrinkAPIResponse, RootStackParamList } from "../types";
 
-type DrinksListScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type DrinksListScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "DrinksListScreen"
+>;
 
 export default function DrinksListScreen({
   navigation,
