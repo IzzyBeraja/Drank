@@ -4,22 +4,22 @@ import {
   ActivityIndicator,
   FlatList,
   ListRenderItem,
-  StyleSheet,
   View,
 } from "react-native";
-import DrinkItem, { DrinkType } from "./DrinkItem";
+import DrinkItem, { DrinkType } from "../components/DrinkItem";
 import { Text } from "react-native-elements";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { DrinkAPIResponse, RootStackParamList } from "../types";
 
-type DrinkAPIResponse = {
-  drinks: [{ idDrink: string; strDrink: string; strDrinkThumb: string }];
-};
+type DrinksListScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
-export default function DrinksListScreen({ navigation }) {
+export default function DrinksListScreen({
+  navigation,
+}: DrinksListScreenProps) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<DrinkType[]>([]);
 
-  const getMovies = async () => {
+  const getDrinks = async () => {
     try {
       const response = await fetch(
         "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
@@ -41,12 +41,12 @@ export default function DrinksListScreen({ navigation }) {
   };
 
   useEffect(() => {
-    getMovies();
+    getDrinks();
   }, []);
 
   const onDrinkPressed = useCallback((drinkId: string) => {
     console.log(`Pressed Drink: ${drinkId}`);
-    navigation.navigate("DrinkScreen");
+    navigation.navigate("DrinkScreen", { drinkId });
   }, []);
 
   const renderItem: ListRenderItem<DrinkType> = useCallback(

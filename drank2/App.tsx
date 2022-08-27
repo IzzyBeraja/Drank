@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DrinkScreen from "./screens/DrinkScreen";
-import DrinksListScreen from "./components/DrinksListScreen";
+import DrinksListScreen from "./screens/DrinksListScreen";
+import { RootStackParamList } from "./types";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (

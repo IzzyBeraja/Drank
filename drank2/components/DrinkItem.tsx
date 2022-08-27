@@ -17,15 +17,11 @@ export type DrinkProps = {
 };
 
 export default function DrinkItem({ drink, onDrinkPressed }: DrinkProps) {
-  const { name, imageUri, id } = drink;
-  const onPressFunction = useCallback(() => {
-    console.log(`Touch me: ${id}`);
-    onDrinkPressed();
-  }, []);
+  const { name, imageUri } = drink;
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={onPressFunction}>
+      <Pressable onPress={onDrinkPressed}>
         <Image source={{ uri: imageUri }} style={styles.image} />
         <View style={styles.titleContainer}>
           <Text style={styles.text}>{name}</Text>
