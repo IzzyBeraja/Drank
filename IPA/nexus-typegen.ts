@@ -28,6 +28,22 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Drink: { // root type
+    alcoholic: boolean; // Boolean!
+    altName?: string | null; // String
+    category: string; // String!
+    glassType: string; // String!
+    id: string; // ID!
+    ingredients: NexusGenRootTypes['Ingredient'][]; // [Ingredient!]!
+    instructions: string; // String!
+    name: string; // String!
+    videoUri?: string | null; // String
+  }
+  Ingredient: { // root type
+    amount: string; // String!
+    id: string; // ID!
+    name: string; // String!
+  }
   Link: { // root type
     description: string; // String!
     id: string; // ID!
@@ -47,23 +63,57 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Drink: { // field return type
+    alcoholic: boolean; // Boolean!
+    altName: string | null; // String
+    category: string; // String!
+    glassType: string; // String!
+    id: string; // ID!
+    ingredients: NexusGenRootTypes['Ingredient'][]; // [Ingredient!]!
+    instructions: string; // String!
+    name: string; // String!
+    videoUri: string | null; // String
+  }
+  Ingredient: { // field return type
+    amount: string; // String!
+    id: string; // ID!
+    name: string; // String!
+  }
   Link: { // field return type
     description: string; // String!
     id: string; // ID!
     url: string; // String!
   }
   Query: { // field return type
+    drinks: NexusGenRootTypes['Drink'][]; // [Drink!]!
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Drink: { // field return type name
+    alcoholic: 'Boolean'
+    altName: 'String'
+    category: 'String'
+    glassType: 'String'
+    id: 'ID'
+    ingredients: 'Ingredient'
+    instructions: 'String'
+    name: 'String'
+    videoUri: 'String'
+  }
+  Ingredient: { // field return type name
+    amount: 'String'
+    id: 'ID'
+    name: 'String'
+  }
   Link: { // field return type name
     description: 'String'
     id: 'ID'
     url: 'String'
   }
   Query: { // field return type name
+    drinks: 'Drink'
     feed: 'Link'
   }
 }
