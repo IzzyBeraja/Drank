@@ -16,6 +16,7 @@
     "generate": "ts-node --transpile-only src/schema.ts"
   },
   "devDependencies": {
+    "prisma": "^4.3.0",
     "ts-node": "^10.9.1"
   }
 }
