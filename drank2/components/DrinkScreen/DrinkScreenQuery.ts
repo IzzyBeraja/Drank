@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const endpoint = "";
+const endpoint = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 
 export type Ingredient = {
   name: string;
@@ -78,38 +78,46 @@ export type DrinkScreenQueryReturnType = {
   ingredients: Ingredient[];
 };
 
-export const useDrinkScreenQuery = async () => {
+export const useDrinkScreenQuery = (
+  drinkID: string
+): [DrinkScreenQueryReturnType | null, boolean, boolean] => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [data, setData] = useState<DrinkScreenQueryReturnType | null>(null);
 
-  try {
-    setIsLoading(true);
-    const response = await fetch(endpoint);
-    const json: DrinkScreenQueryResponse = await response.json();
-    const drinksResponse: DrinkScreenQueryReturnType[] = json.drinks
-      .slice(0, 1)
-      .map(response => ({
-        drinkID: response.idDrink ?? "",
-        name: response.strDrink ?? "",
-        altName: response.strDrinkAlternate,
-        tags: (response.strTags ?? "").split(","),
-        video: response.strVideo ?? "",
-        category: response.strCategory ?? "",
-        IBA: response.strIBA ?? "",
-        alcoholic: response.strAlcoholic === "alcoholic",
-        glass: response.strGlass ?? "",
-        instructions: response.strInstructions ?? "",
-        thumbnailUri: response.strDrinkThumb ?? "",
-        ingredients: [],
-      }));
-    setData(drinksResponse[0]);
-  } catch (error) {
-    setHasError(true);
-    console.error(error);
-  } finally {
-    setIsLoading(false);
-  }
+  useEffect(() => {
+    const runQueryAsync = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${endpoint}${drinkID}`);
+        const json: DrinkScreenQueryResponse = await response.json();
+        const drinksResponse: DrinkScreenQueryReturnType[] = json.drinks
+          .slice(0, 1)
+          .map((response) => ({
+            drinkID: response.idDrink ?? "",
+            name: response.strDrink ?? "",
+            altName: response.strDrinkAlternate,
+            tags: (response.strTags ?? "").split(","),
+            video: response.strVideo ?? "",
+            category: response.strCategory ?? "",
+            IBA: response.strIBA ?? "",
+            alcoholic: response.strAlcoholic === "alcoholic",
+            glass: response.strGlass ?? "",
+            instructions: response.strInstructions ?? "",
+            thumbnailUri: response.strDrinkThumb ?? "",
+            ingredients: [],
+          }));
+        setData(drinksResponse[0]);
+      } catch (error) {
+        setHasError(true);
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    runQueryAsync();
+    console.log("getting the drink");
+  }, [drinkID]);
 
   return [data, isLoading, hasError];
 };
