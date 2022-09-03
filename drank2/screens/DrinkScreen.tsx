@@ -2,8 +2,12 @@ import { View, Image, StyleSheet } from "react-native";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
-import { useDrinkScreenQuery } from "../components/DrinkScreen/DrinkScreenQuery";
+import {
+  Ingredient,
+  useDrinkScreenQuery,
+} from "../components/DrinkScreen/DrinkScreenQuery";
 import { Text } from "react-native-elements";
+import IngredientList from "../components/DrinkScreen/IngredientList";
 type DrinkScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "DrinkScreen"
@@ -31,9 +35,8 @@ export default function DrinkScreen({ route }: DrinkScreenProps) {
               {drinkData?.name}
             </Text>
             <Text style={styles.text}>{drinkData?.category}</Text>
+            <IngredientList ingredients={drinkData?.ingredients} />
             <Text>{drinkData?.instructions}</Text>
-
-            {/* <Text>{JSON.stringify(drinkData ?? "")}</Text> */}
           </View>
         </View>
       )}

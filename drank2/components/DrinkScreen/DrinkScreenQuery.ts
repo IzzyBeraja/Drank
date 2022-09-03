@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 const endpoint = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 
 export type Ingredient = {
-  name: string;
-  amount: string;
+  name: string | null;
+  amount: string | null;
 };
 
 export type DrinkScreenQueryResponse = {
@@ -105,7 +105,23 @@ export const useDrinkScreenQuery = (
             glass: response.strGlass ?? "",
             instructions: response.strInstructions ?? "",
             thumbnailUri: response.strDrinkThumb ?? "",
-            ingredients: [],
+            ingredients: [
+              { name: response.strIngredient1, amount: response.strMeasure1 },
+              { name: response.strIngredient2, amount: response.strMeasure2 },
+              { name: response.strIngredient3, amount: response.strMeasure3 },
+              { name: response.strIngredient4, amount: response.strMeasure4 },
+              { name: response.strIngredient5, amount: response.strMeasure5 },
+              { name: response.strIngredient6, amount: response.strMeasure6 },
+              { name: response.strIngredient7, amount: response.strMeasure7 },
+              { name: response.strIngredient8, amount: response.strMeasure8 },
+              { name: response.strIngredient9, amount: response.strMeasure9 },
+              { name: response.strIngredient10, amount: response.strMeasure10 },
+              { name: response.strIngredient11, amount: response.strMeasure11 },
+              { name: response.strIngredient12, amount: response.strMeasure12 },
+              { name: response.strIngredient13, amount: response.strMeasure13 },
+              { name: response.strIngredient14, amount: response.strMeasure14 },
+              { name: response.strIngredient15, amount: response.strMeasure15 },
+            ].filter(({ name, amount }) => name != null && amount != null),
           }));
         setData(drinksResponse[0]);
       } catch (error) {
