@@ -14,6 +14,19 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  DrinkInputType: { // input type
+    alcoholic: boolean; // Boolean!
+    altName?: string | null; // String
+    category: string; // String!
+    glassType: string; // String!
+    instructions: string; // String!
+    name: string; // String!
+    videoUri?: string | null; // String
+  }
+  IngredientInputType: { // input type
+    amount: string; // String!
+    name: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -32,16 +45,15 @@ export interface NexusGenObjects {
     alcoholic: boolean; // Boolean!
     altName?: string | null; // String
     category: string; // String!
+    drinkId: number; // Int!
     glassType: string; // String!
-    id: string; // ID!
-    ingredients: NexusGenRootTypes['Ingredient'][]; // [Ingredient!]!
     instructions: string; // String!
     name: string; // String!
     videoUri?: string | null; // String
   }
   Ingredient: { // root type
     amount: string; // String!
-    id: string; // ID!
+    ingredientId: number; // Int!
     name: string; // String!
   }
   Link: { // root type
@@ -68,16 +80,15 @@ export interface NexusGenFieldTypes {
     alcoholic: boolean; // Boolean!
     altName: string | null; // String
     category: string; // String!
+    drinkId: number; // Int!
     glassType: string; // String!
-    id: string; // ID!
-    ingredients: NexusGenRootTypes['Ingredient'][]; // [Ingredient!]!
     instructions: string; // String!
     name: string; // String!
     videoUri: string | null; // String
   }
   Ingredient: { // field return type
     amount: string; // String!
-    id: string; // ID!
+    ingredientId: number; // Int!
     name: string; // String!
   }
   Link: { // field return type
@@ -86,11 +97,14 @@ export interface NexusGenFieldTypes {
     url: string; // String!
   }
   Mutation: { // field return type
+    createDrink: NexusGenRootTypes['Drink']; // Drink!
+    createIngredient: NexusGenRootTypes['Ingredient']; // Ingredient!
     createPost: NexusGenRootTypes['Link']; // Link!
   }
   Query: { // field return type
     drinks: NexusGenRootTypes['Drink'][]; // [Drink!]!
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
+    ingredients: NexusGenRootTypes['Ingredient'][]; // [Ingredient!]!
   }
 }
 
@@ -99,16 +113,15 @@ export interface NexusGenFieldTypeNames {
     alcoholic: 'Boolean'
     altName: 'String'
     category: 'String'
+    drinkId: 'Int'
     glassType: 'String'
-    id: 'ID'
-    ingredients: 'Ingredient'
     instructions: 'String'
     name: 'String'
     videoUri: 'String'
   }
   Ingredient: { // field return type name
     amount: 'String'
-    id: 'ID'
+    ingredientId: 'Int'
     name: 'String'
   }
   Link: { // field return type name
@@ -117,16 +130,25 @@ export interface NexusGenFieldTypeNames {
     url: 'String'
   }
   Mutation: { // field return type name
+    createDrink: 'Drink'
+    createIngredient: 'Ingredient'
     createPost: 'Link'
   }
   Query: { // field return type name
     drinks: 'Drink'
     feed: 'Link'
+    ingredients: 'Ingredient'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createDrink: { // args
+      data: NexusGenInputs['DrinkInputType']; // DrinkInputType!
+    }
+    createIngredient: { // args
+      data: NexusGenInputs['IngredientInputType']; // IngredientInputType!
+    }
     createPost: { // args
       description: string; // String!
       url: string; // String!
@@ -142,7 +164,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

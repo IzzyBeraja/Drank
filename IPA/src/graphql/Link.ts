@@ -44,8 +44,8 @@ export const LinkMutation = extendType({
         description: nonNull(stringArg()),
         url: nonNull(stringArg()),
       },
-      resolve(_, args, context) {
-        return context.prisma.link.create({
+      async resolve(_, args, context) {
+        return await context.prisma.link.create({
           data: {
             description: args.description,
             url: args.url,
