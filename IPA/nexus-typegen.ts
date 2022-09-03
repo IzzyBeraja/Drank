@@ -4,7 +4,7 @@
  */
 
 
-
+import type { Context } from "./src/context"
 
 
 
@@ -46,9 +46,10 @@ export interface NexusGenObjects {
   }
   Link: { // root type
     description: string; // String!
-    id: string; // ID!
+    id: number; // Int!
     url: string; // String!
   }
+  Mutation: {};
   Query: {};
 }
 
@@ -81,8 +82,11 @@ export interface NexusGenFieldTypes {
   }
   Link: { // field return type
     description: string; // String!
-    id: string; // ID!
+    id: number; // Int!
     url: string; // String!
+  }
+  Mutation: { // field return type
+    createPost: NexusGenRootTypes['Link']; // Link!
   }
   Query: { // field return type
     drinks: NexusGenRootTypes['Drink'][]; // [Drink!]!
@@ -109,8 +113,11 @@ export interface NexusGenFieldTypeNames {
   }
   Link: { // field return type name
     description: 'String'
-    id: 'ID'
+    id: 'Int'
     url: 'String'
+  }
+  Mutation: { // field return type name
+    createPost: 'Link'
   }
   Query: { // field return type name
     drinks: 'Drink'
@@ -119,6 +126,12 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createPost: { // args
+      description: string; // String!
+      url: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -152,7 +165,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;

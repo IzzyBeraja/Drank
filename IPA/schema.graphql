@@ -22,8 +22,12 @@ type Ingredient {
 
 type Link {
   description: String!
-  id: ID!
+  id: Int!
   url: String!
+}
+
+type Mutation {
+  createPost(description: String!, url: String!): Link!
 }
 
 type Query {
