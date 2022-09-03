@@ -12,8 +12,40 @@ model Widget {
 }
 
 model Link {
-  id          Int      @id @default(sequence())   // 4
-  createdAt   DateTime @default(now())  // 5
+  id          Int      @id @default(sequence()) // 4
+  createdAt   DateTime @default(now()) // 5
   description String
   url         String
+}
+
+model Drink {
+  drinkId             Int                   @id @default(sequence())
+  createdAt           DateTime              @default(now())
+  name                String
+  altName             String?
+  category            String
+  videoUri            String?
+  alcoholic           Boolean               @default(true)
+  glassType           String
+  instructions        String
+  DrinksOnIngredients DrinksOnIngredients[]
+}
+
+model Ingredient {
+  ingredientId        Int                   @id @default(sequence())
+  createdAt           DateTime              @default(now())
+  name                String
+  amount              String
+  DrinksOnIngredients DrinksOnIngredients[]
+}
+
+model DrinksOnIngredients {
+  ingredient             Ingredient @relation(fields: [ingredientIngredientId], references: [ingredientId])
+  ingredientId           Int
+  drink                  Drink      @relation(fields: [drinkDrinkId], references: [drinkId])
+  drinkId                Int
+  ingredientIngredientId Int
+  drinkDrinkId           Int
+
+  @@id([drinkId, ingredientId])
 }

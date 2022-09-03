@@ -6,9 +6,18 @@ type Drink {
   alcoholic: Boolean!
   altName: String
   category: String!
+  drinkId: Int!
   glassType: String!
-  id: ID!
-  ingredients: [Ingredient!]!
+  instructions: String!
+  name: String!
+  videoUri: String
+}
+
+input DrinkInputType {
+  alcoholic: Boolean!
+  altName: String
+  category: String!
+  glassType: String!
   instructions: String!
   name: String!
   videoUri: String
@@ -16,7 +25,12 @@ type Drink {
 
 type Ingredient {
   amount: String!
-  id: ID!
+  ingredientId: Int!
+  name: String!
+}
+
+input IngredientInputType {
+  amount: String!
   name: String!
 }
 
@@ -27,10 +41,13 @@ type Link {
 }
 
 type Mutation {
+  createDrink(data: DrinkInputType!): Drink!
+  createIngredient(data: IngredientInputType!): Ingredient!
   createPost(description: String!, url: String!): Link!
 }
 
 type Query {
   drinks: [Drink!]!
   feed: [Link!]!
+  ingredients: [Ingredient!]!
 }
