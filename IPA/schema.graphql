@@ -26,6 +26,10 @@ type Link {
   url: String!
 }
 
+type Mutation {
+  createPost(description: String!, url: String!): Link!
+}
+
 type Query {
   drinks: [Drink!]!
   feed: [Link!]!

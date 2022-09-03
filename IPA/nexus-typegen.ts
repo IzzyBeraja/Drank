@@ -49,6 +49,7 @@ export interface NexusGenObjects {
     id: number; // Int!
     url: string; // String!
   }
+  Mutation: {};
   Query: {};
 }
 
@@ -84,6 +85,9 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
     url: string; // String!
   }
+  Mutation: { // field return type
+    createPost: NexusGenRootTypes['Link']; // Link!
+  }
   Query: { // field return type
     drinks: NexusGenRootTypes['Drink'][]; // [Drink!]!
     feed: NexusGenRootTypes['Link'][]; // [Link!]!
@@ -112,6 +116,9 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     url: 'String'
   }
+  Mutation: { // field return type name
+    createPost: 'Link'
+  }
   Query: { // field return type name
     drinks: 'Drink'
     feed: 'Link'
@@ -119,6 +126,12 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createPost: { // args
+      description: string; // String!
+      url: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
