@@ -82,6 +82,7 @@ export interface NexusGenFieldTypes {
     category: string; // String!
     drinkId: number; // Int!
     glassType: string; // String!
+    ingredients: NexusGenRootTypes['Ingredient'][]; // [Ingredient!]!
     instructions: string; // String!
     name: string; // String!
     videoUri: string | null; // String
@@ -115,6 +116,7 @@ export interface NexusGenFieldTypeNames {
     category: 'String'
     drinkId: 'Int'
     glassType: 'String'
+    ingredients: 'Ingredient'
     instructions: 'String'
     name: 'String'
     videoUri: 'String'

@@ -1,5 +1,5 @@
 import { NexusGenObjects } from "./../../nexus-typegen";
-import { extendType, inputObjectType, list, nonNull, objectType } from "nexus";
+import { extendType, inputObjectType, nonNull, objectType } from "nexus";
 
 export const Drink = objectType({
   name: "Drink",
@@ -12,6 +12,14 @@ export const Drink = objectType({
     t.nonNull.boolean("alcoholic");
     t.nonNull.string("glassType");
     t.nonNull.string("instructions");
+    t.nonNull.list.nonNull.field("ingredients", {
+      type: "Ingredient",
+      async resolve({ drinkId }, __, { prisma }) {
+        return await prisma.ingredient.findMany({
+          include: { DrinksOnIngredients: { where: { drinkId } } },
+        });
+      },
+    });
   },
 });
 
@@ -47,7 +55,26 @@ export const DrinkMutation = extendType({
       type: "Drink",
       args: { data: nonNull("DrinkInputType") },
       async resolve(_, { data }, { prisma }) {
-        return await prisma.drink.create({ data });
+        const {
+          alcoholic,
+          category,
+          glassType,
+          instructions,
+          name,
+          altName,
+          videoUri,
+        } = data;
+        return await prisma.drink.create({
+          data: {
+            name,
+            instructions,
+            glassType,
+            category,
+            alcoholic,
+            altName,
+            videoUri,
+          },
+        });
       },
     });
   },

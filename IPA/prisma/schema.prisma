@@ -12,8 +12,8 @@ model Widget {
 }
 
 model Link {
-  id          Int      @id @default(sequence()) // 4
-  createdAt   DateTime @default(now()) // 5
+  id          Int      @id @default(sequence())
+  createdAt   DateTime @default(now())
   description String
   url         String
 }
